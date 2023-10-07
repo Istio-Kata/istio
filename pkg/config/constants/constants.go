@@ -185,4 +185,9 @@ const (
 	AmbientRedirectionEnabled = "enabled"
 	// AmbientRedirectionDisabled is an opt-out, configured by user.
 	AmbientRedirectionDisabled = "disabled"
+
+	// KataUDSDirLabel specifies the kata uds dir label
+	KataUDSDirLabel = "kata/sock"
+	// KataUDSDirValue is the value of uds dir label
+	KataUDSDirValue = "/var/run/kata.sock"
 )

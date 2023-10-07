@@ -24,6 +24,7 @@ volumes: []
 podAnnotations:
   prometheus.io/port: "15020"
   prometheus.io/scrape: "true"
+  kata/sock: "/var/run/kata.sock"
 
 # Additional labels to apply on the pod level
 podLabels: {}

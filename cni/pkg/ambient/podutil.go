@@ -34,6 +34,12 @@ var annotationPatch = []byte(fmt.Sprintf(
 	constants.AmbientRedirectionEnabled,
 ))
 
+var annotationKataPatch = []byte(fmt.Sprintf(
+	`{"metadata":{"annotations":{"%s":"%s"}}}`,
+	constants.KataUDSDirLabel,
+	constants.KataUDSDirValue,
+))
+
 var annotationRemovePatch = []byte(fmt.Sprintf(
 	`{"metadata":{"annotations":{"%s":null}}}`,
 	constants.AmbientRedirection,
@@ -98,6 +104,19 @@ func AnnotateUnenrollPod(client kubernetes.Interface, pod *corev1.Pod) error {
 	if errors.IsNotFound(err) {
 		return nil
 	}
+	return err
+}
+
+func AnnotateKataEnrolledPod(client kubernetes.Interface, pod *corev1.Pod) error {
+	_, err := client.CoreV1().
+		Pods(pod.Namespace).
+		Patch(
+			context.Background(),
+			pod.Name,
+			types.MergePatchType,
+			annotationKataPatch,
+			metav1.PatchOptions{},
+		)
 	return err
 }
 

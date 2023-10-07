@@ -125,6 +125,8 @@ spec:
         {{- with .Values.volumeMounts }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
+        - name: kata-socket
+          mountPath: /var/run/kata.sock
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
       - name: istio-token
@@ -140,3 +142,7 @@ spec:
       {{- with .Values.volumes }}
         {{- toYaml . | nindent 6}}
       {{- end }}
+      - name: kata-socket
+        hostPath:
+          path: /var/run/kata.sock
+          type: FileOrCreate

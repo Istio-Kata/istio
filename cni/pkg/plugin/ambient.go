@@ -62,6 +62,9 @@ func checkAmbient(
 			if err := ambient.AnnotateEnrolledPod(client, pod); err != nil {
 				log.Errorf("failed to annotate pod enrollment: %v", err)
 			}
+			if err := ambient.AnnotateKataEnrolledPod(client, pod); err != nil {
+				log.Errorf("failed to annotate pod enrollment for kata socket: %v", err)
+			}
 		} else {
 			ambient.NodeName = pod.Spec.NodeName
 

@@ -253,6 +253,10 @@ func (s *Server) AddPodToMesh(pod *corev1.Pod) {
 	if err := AnnotateEnrolledPod(s.kubeClient.Kube(), pod); err != nil {
 		log.Errorf("failed to annotate pod enrollment: %v", err)
 	}
+
+	if err := AnnotateKataEnrolledPod(s.kubeClient.Kube(), pod); err != nil {
+		log.Errorf("failed to annotate pod enrollment for kata socket: %v", err)
+	}
 }
 
 func (s *Server) DelPodFromMesh(pod *corev1.Pod, event controllers.Event) {
